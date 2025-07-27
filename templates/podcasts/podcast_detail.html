@@ -3,13 +3,13 @@
 <h1>{{ podcast.title }}</h1>
 <a href="{% url 'bulk_add_episodes' pk=podcast.pk %}">Bulk add episodes</a>
 <ol>
-  {% for episode in episodes_listened %}
+  {% for episode in episodes_not_listened %}
   <p>{% include "podcasts/snippets/episode_list_item.html" %}</p>
   {% endfor %}
 </ol>
 <br />
 <ol>
-  {% for episode in episodes_not_listened %}
+  {% for episode in episodes_listened %}
   <p>{% include "podcasts/snippets/episode_list_item.html" %}</p>
   {% endfor %}
 </ol>
