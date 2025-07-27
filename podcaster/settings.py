@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'podcaster',
     'podcasts',
+    'landing',
 ]
 
 JAZZMIN_UI_TWEAKS = {
