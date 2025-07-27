@@ -6,7 +6,12 @@ After=network.target
 User=podcaster
 Group=podcaster
 WorkingDirectory=/home/podcaster
-ExecStart=/home/podcaster/venv/bin/gunicorn podcaster.wsgi:application --bind 127.0.0.1:8000 --workers 3 --timeout 120
+ExecStart=/home/podcaster/venv/bin/gunicorn podcaster.wsgi:application \
+    --bind 127.0.0.1:8000 \
+    --workers 3 \
+    --timeout 120 \
+    --access-logfile /home/podcaster/gunicorn-access.log \
+    --error-logfile /home/podcaster/gunicorn-error.log
 
 [Install]
 WantedBy=multi-user.target
