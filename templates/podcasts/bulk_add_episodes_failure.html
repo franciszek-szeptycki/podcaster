@@ -1,6 +1,10 @@
+{% extends "base.html" %} {% block content %}
+
 <h1>Coś się wywaliło.</h1>
 <a href="{% url 'podcast_detail' pk=pk %}">Wróć do podcastu</a>
 <br />
 <img
   src="https://en.meming.world/images/en/b/bc/Mike_Wazowski-Sulley_Face_Swap.jpg"
 />
+
+{% endblock content %}

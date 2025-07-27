@@ -1,3 +1,5 @@
+{% extends "base.html" %} {% block content %}
+
 <h2>Dodaj nowy podcast</h2>
 
 {% include 'podcasts/forms/podcast.html' %}
@@ -11,3 +13,5 @@
   <li>No podcasts available.</li>
   {% endfor %}
 </ul>
+
+{% endblock content %}

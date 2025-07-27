@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %} Jesteś pewny?
+
+<form
+  method="post"
+  action="{% url 'episode_delete' pk=episode.id podcast_pk=podcast_pk %}"
+>
+  {% csrf_token %}
+  <p>Na pewno chcesz usunąć ten odcinek?</p>
+  <button type="submit" class="btn btn-danger">Usuń</button>
+  <a href="{% url 'podcast_detail' pk=podcast_pk %}" class="btn btn-secondary"
+    >Anuluj</a
+  >
+</form>
+
+{% endblock content %}

@@ -1,6 +1,15 @@
-<form method="post">
+<form method="post" class="needs-validation" novalidate>
   {% csrf_token %}
-  <label for="episodes_text">Lista odcinków:</label><br />
-  <textarea name="episodes_text" rows="10" cols="60"></textarea><br />
-  <button type="submit">Wyślij</button>
+
+  <div class="mb-3">
+    <label for="episodes_text" class="form-label">Lista odcinków:</label>
+    <textarea
+      name="episodes_text"
+      id="episodes_text"
+      rows="10"
+      class="form-control"
+    ></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Wyślij</button>
 </form>

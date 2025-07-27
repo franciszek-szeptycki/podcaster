@@ -1,5 +1,9 @@
+{% extends "base.html" %} {% block content %}
+
 <h1>Wszystko poszło git.</h1>
 <a href="{% url 'podcast_detail' pk=pk %}">Wróć do podcastu</a>
 <br />
 <p>(obrazek bez związku)</p>
 <img src="https://i1.memy.pl/obrazki/11aa666466_no_dawaj_kurwa_.jpg" />
+
+{% endblock content %}

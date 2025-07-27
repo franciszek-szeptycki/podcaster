@@ -1,4 +1,10 @@
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %} {{ form.as_p }}
-  <button type="submit">Dodaj</button>
+<form
+  method="post"
+  enctype="multipart/form-data"
+  class="needs-validation"
+  novalidate
+>
+  {% csrf_token %}
+  <div class="mb-3">{{ form.as_p|safe }}</div>
+  <button type="submit" class="btn btn-primary">Dodaj</button>
 </form>

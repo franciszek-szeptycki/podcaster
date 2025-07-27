@@ -1,0 +1,14 @@
+<form
+  action="{% url 'episode_toggle_listened' pk=episode.pk podcast_pk=podcast.pk %}"
+  method="post"
+  class="d-inline"
+>
+  {% csrf_token %}
+  <button
+    type="submit"
+    class="btn btn-sm {% if episode.is_listened %}btn-secondary{% else %}btn-success{% endif %}"
+  >
+    {% if episode.is_listened %} Oznacz jako nieprzesłuchane {% else %} Oznacz
+    jako przesłuchane {% endif %}
+  </button>
+</form>
