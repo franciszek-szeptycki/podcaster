@@ -2,7 +2,7 @@
 
 set -e
 
-cp devops/podcaster.franciszekk.conf
+cp devops/podcaster.franciszekk.conf /etc/nginx/sites-enabled/podcaster.franciszekk.conf
 cp devops/podcaster.service /etc/systemd/system/podcaster.service
 
 nginx -t
