@@ -14,12 +14,16 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class EpisodeDeleteView(DeleteView):
+class EpisodeDeleteView(DeleteView, LoginRequiredMixin):
     model = Episode
     context_object_name = 'episode'
     template_name = 'podcasts/episode_delete.html'
+
+    def get_queryset(self):
+        return Episode.objects.filter(user=self.request.user)  # ← tylko epizody użytkownika
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -31,10 +35,10 @@ class EpisodeDeleteView(DeleteView):
         return reverse('podcast_detail', kwargs={'pk': podcast_pk})
 
 
-class ToggleEpisodeListenedView(View):
+class ToggleEpisodeListenedView(View, LoginRequiredMixin):
     def post(self, request, **kwargs):
         pk = kwargs.get('pk')
-        episode = get_object_or_404(Episode, pk=pk)
+        episode = get_object_or_404(Episode, pk=pk, user=request.user)  # ← tylko epizod użytkownika
         episode.is_listened = not episode.is_listened
         episode.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))
