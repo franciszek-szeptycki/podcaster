@@ -5,6 +5,7 @@
 <ol>
   {% for episode in episodes_not_listened %}
   <p>{% include "podcasts/snippets/episode_list_item.html" %}</p>
+  <hr />
   {% endfor %}
 </ol>
 <br />
@@ -13,4 +14,50 @@
   <p>{% include "podcasts/snippets/episode_list_item.html" %}</p>
   {% endfor %}
 </ol>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const episodeAudios = document.querySelectorAll(".episode-audio");
+
+    for (let i = 0; i < episodeAudios.length; i++) {
+      const audio = episodeAudios[i];
+
+      audio.addEventListener("ended", async function () {
+        const toggleUrl = audio.dataset.toggleUrl;
+
+        try {
+          await fetch(toggleUrl, {
+            method: "POST",
+            headers: {
+              "X-CSRFToken": getCSRFToken(),
+              "X-Requested-With": "XMLHttpRequest",
+            },
+          });
+        } catch (err) {
+          console.error("Błąd toggle:", err);
+          return;
+        }
+
+        const nextAudio = episodeAudios[i + 1];
+        if (nextAudio) {
+          nextAudio.play();
+        }
+      });
+    }
+
+    function getCSRFToken() {
+      const name = "csrftoken";
+      const cookies = document.cookie.split(";");
+
+      for (let cookie of cookies) {
+        cookie = cookie.trim();
+        if (cookie.startsWith(name + "=")) {
+          return decodeURIComponent(cookie.slice(name.length + 1));
+        }
+      }
+      return "";
+    }
+  });
+</script>
+
 {% endblock content %}

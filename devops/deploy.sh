@@ -4,6 +4,8 @@ set -e
 
 cd /home/podcaster
 
+source ./devops/configure_prod.sh
+
 git pull origin main
 
 source ./venv/bin/activate

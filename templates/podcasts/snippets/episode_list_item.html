@@ -1,23 +1,29 @@
-<li
-  class="list-group-item d-flex flex-column flex-md-row align-items-md-center justify-content-between"
->
-  <div>
-    <p class="mb-2 mb-md-0 fw-semibold">{{ episode.name }}</p>
-    <audio controls class="w-100">
-      <source src="{{ episode.file.url }}" type="audio/mpeg" />
-      Your browser does not support the audio element.
-    </audio>
-  </div>
+<li class="list-group-item episode-item" data-episode-id="{{ episode.pk }}">
+  <div class="d-flex flex-column flex-md-row justify-content-between gap-3">
+    <div class="w-100">
+      <p class="fw-semibold mb-2 mb-md-0">{{ episode.name }}</p>
+      <audio
+        controls
+        class="w-100 episode-audio"
+        data-toggle-url="{% url 'episode_toggle_listened' pk=episode.pk podcast_pk=podcast.pk %}"
+      >
+        <source src="{{ episode.file.url }}" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
 
-  <div class="d-flex align-items-center mt-3 mt-md-0 gap-3">
-    {% include "podcasts/forms/episode_toggle_is_listened.html" %}
-
-    <a
-      href="{% url 'episode_delete' pk=episode.pk podcast_pk=podcast.pk %}"
-      class="btn btn-sm btn-danger"
-      onclick="return confirm('Na pewno usunąć ten odcinek?');"
+    <div
+      class="d-flex flex-row flex-md-column align-items-start align-items-md-center gap-2"
     >
-      DELETE
-    </a>
+      {% include "podcasts/forms/episode_toggle_is_listened.html" %}
+
+      <a
+        href="{% url 'episode_delete' pk=episode.pk podcast_pk=podcast.pk %}"
+        class="btn btn-sm btn-danger"
+        onclick="return confirm('Na pewno usunąć ten odcinek?');"
+      >
+        DELETE
+      </a>
+    </div>
   </div>
 </li>

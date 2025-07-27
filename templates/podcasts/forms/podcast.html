@@ -1,10 +1,141 @@
 <form
   method="post"
   enctype="multipart/form-data"
-  class="needs-validation"
+  class="needs-validation mobile-form"
   novalidate
 >
   {% csrf_token %}
-  <div class="mb-3">{{ form.as_p|safe }}</div>
-  <button type="submit" class="btn btn-primary">Dodaj</button>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="mb-3">
+        <label for="id_title" class="form-label fw-semibold">
+          <i class="bi bi-mic me-2 text-primary"></i>
+          Nazwa podcastu
+        </label>
+        <input
+          type="text"
+          class="form-control form-control-lg mobile-input"
+          id="id_title"
+          name="title"
+          placeholder="Wpisz nazwę podcastu..."
+          required
+          maxlength="200"
+        />
+        <div class="invalid-feedback">
+          Proszę wpisać nazwę podcastu.
+        </div>
+        <div class="form-text">
+          <i class="bi bi-info-circle me-1"></i>
+          Maksymalnie 200 znaków
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg mobile-btn"
+          id="submit-btn"
+        >
+          <i class="bi bi-plus-circle me-2"></i>
+          <span class="btn-text">Dodaj podcast</span>
+        </button>
+      </div>
+    </div>
+  </div>
 </form>
+
+<style>
+.mobile-form .form-control {
+  border-radius: 12px;
+  border: 2px solid #e9ecef;
+  padding: 0.75rem 1rem;
+  font-size: 16px; /* Prevents zoom on iOS */
+  transition: all 0.3s ease;
+}
+
+.mobile-form .form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  transform: translateY(-2px);
+}
+
+.mobile-form .form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.mobile-form .form-control.is-valid {
+  border-color: #198754;
+}
+
+.mobile-input {
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+}
+
+@media (max-width: 768px) {
+  .mobile-form .btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+  }
+
+  .mobile-form .form-control-lg {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('.mobile-form');
+  const titleInput = document.getElementById('id_title');
+  const submitBtn = document.getElementById('submit-btn');
+  const btnText = submitBtn.querySelector('.btn-text');
+
+  // Form validation
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (form.checkValidity()) {
+      // Show loading state
+      submitBtn.disabled = true;
+      btnText.textContent = 'Dodawanie...';
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>' + btnText.textContent;
+
+      // Submit form
+      this.submit();
+    } else {
+      // Show validation errors
+      form.classList.add('was-validated');
+      titleInput.focus();
+    }
+  });
+
+  // Real-time validation
+  titleInput.addEventListener('input', function() {
+    if (this.value.trim().length > 0) {
+      this.classList.remove('is-invalid');
+      this.classList.add('is-valid');
+    } else {
+      this.classList.remove('is-valid');
+      this.classList.add('is-invalid');
+    }
+  });
+
+  // Character counter
+  titleInput.addEventListener('input', function() {
+    const maxLength = 200;
+    const currentLength = this.value.length;
+    const formText = this.parentElement.querySelector('.form-text');
+
+    if (currentLength > maxLength * 0.8) {
+      formText.innerHTML = `<i class="bi bi-exclamation-triangle me-1 text-warning"></i>
+        Pozostało ${maxLength - currentLength} znaków`;
+    } else {
+      formText.innerHTML = `<i class="bi bi-info-circle me-1"></i>
+        Maksymalnie ${maxLength} znaków`;
