@@ -23,7 +23,7 @@ jobs:
 
       - name: Deploy on Remote Server
         run: |
-          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_ROOT }}@${{ secrets.SSH_HOST }} << 'EOF'
+          ssh -i ~/.ssh/id_rsa ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             cd /home/podcaster
             ./devops/deploy.sh
           EOF
