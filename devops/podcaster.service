@@ -6,7 +6,7 @@ After=network.target
 User=podcaster
 Group=podcaster
 WorkingDirectory=/home/podcaster
-ExecStart=/home/podcaster/devops/start_prod.sh
+ExecStart=/home/podcaster/devops/restart_prod.sh
 EnvironmentFile=/home/podcaster/.env.production
 
 Restart=always
