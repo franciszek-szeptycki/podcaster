@@ -2,10 +2,15 @@
 
 set -e
 
+cd /home/podcaster
+
 git pull origin main
 
-sudo cp devops/podcaster.service /etc/systemd/system/podcaster.service
+source ./venv/bin/activate
 
-sudo systemctl daemon-reload
+pip install -r requirements.txt
 
-sudo systemctl restart podcaster.service
+python manage.py collectstatic --noinput
+python manage.py migrate --noinput
+
+systemctl restart podcaster.service

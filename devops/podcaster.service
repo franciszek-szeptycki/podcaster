@@ -6,7 +6,7 @@ After=network.target
 User=podcaster
 Group=podcaster
 WorkingDirectory=/home/podcaster
-ExecStart=/home/podcaster/devops/restart_prod.sh
+ExecStart=gunicorn podcaster.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
 EnvironmentFile=/home/podcaster/.env.production
 
 Restart=always
