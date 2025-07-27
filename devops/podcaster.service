@@ -1,0 +1,16 @@
+[Unit]
+Description=Django Application
+After=network.target
+
+[Service]
+User=podcaster
+Group=podcaster
+WorkingDirectory=/home/podcaster
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/home/podcaster/devops/start_prod.sh
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
