@@ -1,16 +1,12 @@
 [Unit]
-Description=Django Application
+Description=Gunicorn instance to serve Podcaster Django app
 After=network.target
 
 [Service]
 User=podcaster
 Group=podcaster
 WorkingDirectory=/home/podcaster
-ExecStart=/home/podcaster/venv/bin/gunicorn podcaster.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120
-EnvironmentFile=/home/podcaster/.env.production
-
-Restart=always
-RestartSec=5
+ExecStart=/home/podcaster/venv/bin/gunicorn podcaster.wsgi:application --bind 127.0.0.1:8000 --workers 3 --timeout 120
 
 [Install]
 WantedBy=multi-user.target
