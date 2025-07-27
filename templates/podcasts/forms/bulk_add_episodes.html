@@ -1,0 +1,6 @@
+<form method="post">
+  {% csrf_token %}
+  <label for="episodes_text">Lista odcinków:</label><br />
+  <textarea name="episodes_text" rows="10" cols="60"></textarea><br />
+  <button type="submit">Wyślij</button>
+</form>

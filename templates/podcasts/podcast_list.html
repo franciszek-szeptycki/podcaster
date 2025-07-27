@@ -1,0 +1,13 @@
+<h2>Dodaj nowy podcast</h2>
+
+{% include 'podcasts/forms/podcast.html' %}
+
+<ul>
+  {% for podcast in podcasts %}
+  <li>
+    <a href="{% url 'podcast_detail' pk=podcast.pk %}">{{ podcast.title }}</a>
+  </li>
+  {% empty %}
+  <li>No podcasts available.</li>
+  {% endfor %}
+</ul>

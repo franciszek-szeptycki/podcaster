@@ -1,0 +1,23 @@
+<h1>{{ podcast.title }}</h1>
+<a href="{% url 'bulk_add_episodes' pk=podcast.pk %}">Bulk add episodes</a>
+<ol>
+  {% for episode in episodes_listened %}
+  <li>
+    <p>{{ episode.name }}</p>
+    <audio controls>
+      <source src="{{ episode.file.url }}" type="audio/mpeg" />
+    </audio>
+  </li>
+  {% endfor %}
+  <br />
+  {% for episode in episodes_not_listened %}
+</ol>
+<ol>
+  <li>
+    <p>{{ episode.name }}</p>
+    <audio controls>
+      <source src="{{ episode.file.url }}" type="audio/mpeg" />
+    </audio>
+  </li>
+  {% endfor %}
+</ol>
